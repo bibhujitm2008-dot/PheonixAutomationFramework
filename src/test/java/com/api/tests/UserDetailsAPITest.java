@@ -1,22 +1,15 @@
 package com.api.tests;
 
-import static org.hamcrest.Matchers.*;
+import static io.restassured.RestAssured.given;
+import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
+import static org.hamcrest.Matchers.lessThan;
 
 import java.io.IOException;
 
 import org.testng.annotations.Test;
 
-import com.api.constants.Roles;
-
-import static com.api.utils.AuthTokenProvider.*;
-
-import static com.api.utils.ConfigManager.*;
-
-import io.restassured.http.ContentType;
-import io.restassured.http.Header;
-
-import static io.restassured.RestAssured.*;
-import static io.restassured.module.jsv.JsonSchemaValidator.*;
+import static com.api.constants.Roles.*;
+import com.api.utils.SpecUtil;
 
 public class UserDetailsAPITest {
 	
@@ -24,18 +17,12 @@ public class UserDetailsAPITest {
 	public void userDetailsAPITest() throws IOException {
 		
 		
-		Header authHeader = new Header("Authorization", getToken(Roles.FD));
 		given()
-		 .baseUri(getProperty("BASE_URI"))
-		 .header(authHeader)
-		 .accept(ContentType.JSON)
-		 .log().all()
+		 .spec(SpecUtil.requestSpecWithAuth(FD))
 		 .when()
 		 .get("userdetails")
 		 .then()
-		 .log().all()
-		 .statusCode(200)
-		 .time(lessThan(2000L))
+		 .spec(SpecUtil.responseSpec_OK())
 		 .body(matchesJsonSchemaInClasspath("response-schema/userDetailsFDAPIResponseSchema.json"));
 	}
 

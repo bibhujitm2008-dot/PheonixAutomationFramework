@@ -3,6 +3,8 @@ package com.api.tests;
 import static org.hamcrest.Matchers.*;
 import org.testng.annotations.Test;
 
+import com.api.utils.SpecUtil;
+
 import static com.api.constants.Roles.*;
 import static com.api.utils.AuthTokenProvider.*;
 
@@ -19,18 +21,13 @@ public class CountAPITest {
 	public void verifyCountAPIResponse() {
 		
 		given()
-		  .baseUri(getProperty("BASE_URI"))
-		  .contentType(ContentType.JSON)
-		  .header("Authorization", getToken(FD))
-		  .log().all()
+		  .spec(SpecUtil.requestSpecWithAuth(FD))
 		  
 		  .when()
 		  .get("/dashboard/count")
 		  
 		  .then()
-		  .log().all()
-		  .statusCode(200)
-		  .time(lessThan(1000L))
+		  .spec(SpecUtil.responseSpec_OK())
 		  .body("message", equalTo("Success"))
 		  .body("data", notNullValue())
 		  .body("data.size()", equalTo(3))
@@ -45,16 +42,13 @@ public class CountAPITest {
 	public void countAPITestWithMissingToken() {
 		
 		given()
-		  .baseUri(getProperty("BASE_URI"))
-		  .contentType(ContentType.JSON)
-		  .log().all()
+		  .spec(SpecUtil.requestSpec())
 		  
 		  .when()
 		  .get("/dashboard/count")
 		  
 		  .then()
-		  .log().all()
-		  .statusCode(401);
+		  .spec(SpecUtil.responseSpec_TEXT(401));
 		
 	}
 
