@@ -1,19 +1,17 @@
 package com.api.tests;
 
-import static org.hamcrest.Matchers.*;
+import static com.api.constants.Roles.FD;
+import static io.restassured.RestAssured.given;
+import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
+import static org.hamcrest.Matchers.containsInAnyOrder;
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.everyItem;
+import static org.hamcrest.Matchers.greaterThanOrEqualTo;
+import static org.hamcrest.Matchers.notNullValue;
+
 import org.testng.annotations.Test;
 
 import com.api.utils.SpecUtil;
-
-import static com.api.constants.Roles.*;
-import static com.api.utils.AuthTokenProvider.*;
-
-import io.restassured.http.ContentType;
-import static io.restassured.module.jsv.JsonSchemaValidator.*;
-
-import static com.api.utils.ConfigManager.*;
-
-import static io.restassured.RestAssured.*;
 
 public class CountAPITest {
 
