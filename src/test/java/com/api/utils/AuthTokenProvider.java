@@ -3,7 +3,7 @@ package com.api.utils;
 import static io.restassured.RestAssured.*;
 
 import com.api.constants.Roles;
-import com.api.pojo.UserCredentials;
+import com.api.request.model.UserCredentials;
 
 import io.restassured.http.ContentType;
 
