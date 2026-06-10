@@ -15,6 +15,7 @@ import com.api.request.model.Customer;
 import com.api.request.model.CustomerAddress;
 import com.api.request.model.CustomerProduct;
 import com.api.request.model.Problems;
+import static com.api.utils.DateTimeUtil.*;
 import com.api.utils.SpecUtil;
 
 import static io.restassured.module.jsv.JsonSchemaValidator.*;
@@ -27,8 +28,8 @@ public class CreateJobAPITest {
 		Customer customer = new Customer("Bibhu", "Moh", "9620465999", "", "xyz12@gmail.com", "");
 		CustomerAddress customerAddress = new CustomerAddress("C405", "Prestige city", "dommasandra", "Sharjapur",
 				"Chambenahalli", "560087", "India", "Karnataka");
-		CustomerProduct customerProduct = new CustomerProduct("2025-11-05T18:30:00.000Z", "99015213376205",
-				"99015213376205", "99015213376205", "2025-11-05T18:30:00.000Z", 1, 1);
+		CustomerProduct customerProduct = new CustomerProduct(getTimeDaysAgo(10), "99015215576205",
+				"99015215576205", "99015215576205", getTimeDaysAgo(10), 1, 1);
 		Problems problems = new Problems(1, "Battery issue");
 		List<Problems> problemsList = new ArrayList<Problems>();
 		problemsList.add(problems);
